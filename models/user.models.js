@@ -12,7 +12,7 @@ const userscheme = new mongoose.Schema({
         firstName:{
             required: true,
             type: String,
-            minlenght: 10,
+            minlenght: 3,
             maxlenght: 50
         },
         lastName:{
@@ -26,6 +26,7 @@ const userscheme = new mongoose.Schema({
         
         required: true,
         type: String,
+        unique: true,
         minlenght: 10,
         maxlenght: 50
     },
@@ -40,11 +41,11 @@ const userscheme = new mongoose.Schema({
 })
 
 userscheme.methods.generateAuthToken = async function () {
-    const token = jwt.sign({ _id: user.this._id }, process.env.JWT_SECRET);
+    const token = jwt.sign({ _id: user.this._id }, process.env.JWT_SECRET , {expiresIn: '24h'} );
     return token;
 }
 
-userscheme.methods.comparedpassword = async function (password) {
+userscheme.methods.comparepassword = async function (password) {
     const isMatch = await bcrypt.compare(password, this.password);
     return isMatch;
 }
@@ -54,5 +55,5 @@ userscheme.methods.hashpassword = async function (password) {
     const hashedpassword = await bcrypt.hash(password, salt);
     return hashedpassword;
 }
-const usermodels = mongoose.model('user', userscheme);
-module.exports = usermodels
+const userModels = mongoose.model('user', userscheme);
+module.exports = userModels
