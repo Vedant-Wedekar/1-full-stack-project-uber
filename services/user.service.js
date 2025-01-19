@@ -1,21 +1,19 @@
-const UserModel = require('../models/user.models');
+const userModel = require('../models/user.model');
 
-module.exports.createUser = async ({
-    firstName,
-    lastName,
-    email,
-    password,
-}) => {
-    if (!firstName  || !email || !password) {
+module.exports.createUser = async ({ fullname, email, password }) => {
+    if (!fullname?.firstname || !fullname?.lastname || !email || !password) {
         throw new Error('Missing required fields');
     }
-    const user = userModel.create({
-        fullName: {
-            firstName,
-            lastName
+
+    // Directly create the user; the password will be hashed by the pre-save hook
+    const user = await userModel.create({
+        fullname: {
+            firstname: fullname.firstname,
+            lastname: fullname.lastname
         },
         email,
-        password
-    })
+        password // Pass the raw password; it will be hashed automatically
+    });
+
     return user;
-}
+};
