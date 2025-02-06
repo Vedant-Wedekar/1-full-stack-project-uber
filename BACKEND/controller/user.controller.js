@@ -1,7 +1,7 @@
 const userModels = require('../models/user.model');
 const bcrypt = require('bcrypt');
 
-const userService = require('../services/user.service');
+const userService = require('../../services/user.service');
 const { validationResult } = require('express-validator');
 
 module.exports.registerUser = async (req, res) => {
@@ -47,6 +47,7 @@ module.exports.registerUser = async (req, res) => {
 
         // Generate token and send response
         const token = user.generateAuthToken();
+        res.cookie('token', token);
         console.log('Generated Token:', token); // Debugging log
 
         return res.status(200).json({ token, user });
@@ -60,6 +61,6 @@ module.exports.registerUser = async (req, res) => {
     }
 };
 module.exports.getUserprofile = async (req, res) => {
-    res.status(200).json({ user: req.user });
-}
+    res.status(200).json({ user: req.user });}
+    
 

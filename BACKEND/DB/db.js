@@ -9,5 +9,32 @@ function connectToDb() {
             console.error('Failed to connect to DB', err);
         });
 }
-
 module.exports = connectToDb;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
