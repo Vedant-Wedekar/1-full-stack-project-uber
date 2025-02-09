@@ -1,11 +1,13 @@
-import React from 'react';
+import React from 'react'
 
-function App() {
+const App = () => {
   return (
-<div className="flex justify-center items-center h-screen bg-blue-500"><h1 className="text-4xl text-white font-bold">Hello, Tailwind CSS!</h1>
+    <div>
+       <h1 class="flex justify-center text-3xl font-bold underline">
+    Hello world!
+  </h1>
     </div>
-  );
+  )
 }
 
-export default App;
-
+export default App
